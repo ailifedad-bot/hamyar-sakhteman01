@@ -232,7 +232,8 @@
       const name=$('[name="full_name"]',form)?.value?.trim()||'';
       const btn=$('.send-otp',form); setBusy(btn,true,'در حال ارسال...');
       try{
-        const {error}=await db.auth.signInWithOtp({phone,options:{shouldCreateUser:true,data:{full_name:name}}});
+        const registrationType = form.dataset.kind === 'user' ? 'user' : 'customer';
+        const {error}=await db.auth.signInWithOtp({phone,options:{shouldCreateUser:true,data:{full_name:name,registration_type:registrationType}}});
         if(error)throw error;
         form.dataset.phoneE164=phone;
         $('.otpbox',form).hidden=false;
@@ -289,8 +290,9 @@
       try{await sendFormEmail(form,subject,extra);return true;}catch(e){console.error('FormSubmit notification failed:',e);return false;}
     }
     async function ensureCustomerCanRequest(user){
-      const {data:profile,error:pErr}=await db.from('profiles').select('id,full_name,approval_status').eq('id',user.id).single();
+      const {data:profile,error:pErr}=await db.from('profiles').select('id,full_name,role,approval_status').eq('id',user.id).single();
       if(pErr)throw pErr;
+      if(profile.role!=='customer')throw new Error('این حساب هنوز به‌عنوان مشتری خدمات فعال نشده است. لطفاً ابتدا ثبت‌نام مشتری را تکمیل کنید یا با مدیر برنامه تماس بگیرید.');
       if(profile.approval_status!=='approved')throw new Error('ثبت‌نام شما هنوز توسط مدیر تأیید نشده است. پس از تأیید، امکان ثبت درخواست خدمات فعال می‌شود.');
       const {data:subs,error:sErr}=await db.from('subscriptions').select('id,ends_at,subscription_plans!inner(audience)').eq('user_id',user.id).eq('status','active').eq('subscription_plans.audience','customer').gt('ends_at',new Date().toISOString()).limit(1);
       if(sErr)throw sErr;
