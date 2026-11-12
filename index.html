@@ -257,8 +257,16 @@
         showStatus('شماره موبایل تأیید شد. اکنون دکمه ثبت نهایی را بزنید.','success');
       }finally{setBusy(btn,false,'تأیید کد');}
     }
-    $$('.send-otp').forEach(btn=>btn.addEventListener('click',async()=>{const f=btn.closest('form');try{await sendOtp(f);}catch(e){showStatus(e.message||'ارسال کد انجام نشد. تنظیمات ورود پیامکی Supabase را بررسی کنید.','error');}}));
-    $$('.verify-btn').forEach(btn=>btn.addEventListener('click',async()=>{const f=btn.closest('form');try{await verifyOtp(f);}catch(e){showStatus(e.message||'کد تأیید نشد.','error');}}));
+    function friendlyAuthError(error, fallback){
+      const message=String(error?.message||'');
+      if(/unsupported phone provider/i.test(message)) return 'سرویس ارسال پیامک در Supabase فعال یا پیکربندی نشده است. مدیر برنامه باید در Authentication > Sign In / Providers > Phone، ورود با شماره موبایل و ارائه‌دهنده SMS را تنظیم کند.';
+      if(/sms provider|twilio|messagebird|vonage/i.test(message)) return 'تنظیمات ارائه‌دهنده پیامک در Supabase کامل نیست. بخش Phone در تنظیمات Authentication را بررسی کنید.';
+      if(/invalid phone/i.test(message)) return 'شماره موبایل معتبر نیست. شماره را با قالب 09xxxxxxxxx وارد کنید.';
+      if(/rate limit|too many requests/i.test(message)) return 'تعداد درخواست کد زیاد شده است. کمی صبر کنید و دوباره تلاش کنید.';
+      return message||fallback;
+    }
+    $('.send-otp').forEach(btn=>btn.addEventListener('click',async()=>{const f=btn.closest('form');try{await sendOtp(f);}catch(e){showStatus(friendlyAuthError(e,'ارسال کد انجام نشد. تنظیمات ورود پیامکی Supabase را بررسی کنید.'),'error');}}));
+    $('.verify-btn').forEach(btn=>btn.addEventListener('click',async()=>{const f=btn.closest('form');try{await verifyOtp(f);}catch(e){showStatus(friendlyAuthError(e,'کد تأیید نشد.'),'error');}}));
 
     async function updateProfile(user, form, note){
       const fullName=$('[name="full_name"]',form)?.value?.trim()||user.user_metadata?.full_name||'';
