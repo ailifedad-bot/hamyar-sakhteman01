@@ -59,7 +59,7 @@
 
     <!-- درخواست خدمت -->
     <form class="panel" id="form-request" data-kind="request" hidden>
-      <h2>ثبت درخواست خدمات</h2><p class="subhead">نوع خدمت و محل را انتخاب کنید؛ درخواست پس از تأیید شرایط حساب ثبت می‌شود.</p>
+      <h2>ثبت درخواست خدمات</h2><p class="subhead">نوع خدمت و محل را انتخاب کنید؛ درخواست شما مستقیماً برای بررسی به ایمیل مدیریت ارسال می‌شود.</p>
       <div class="field"><label>نوع خدمت <span class="required">*</span></label><select name="category_id" id="requestCategory" required><option value="">در حال دریافت فهرست خدمات...</option></select></div>
       <div class="grid2">
         <div class="field"><label>محله <span class="required">*</span></label><select name="area_id" id="requestArea" class="area-select" required><option value="">انتخاب محله</option></select></div>
@@ -69,27 +69,24 @@
       <div class="field"><label>نشانی دقیق <span class="required">*</span></label><input name="address" required maxlength="250" placeholder="خیابان، کوچه، پلاک و واحد"></div>
       <div class="field"><label>شرح کوتاه مشکل <span class="required">*</span></label><textarea name="description" required maxlength="1200" placeholder="مشکل را کوتاه توضیح دهید"></textarea></div>
       <div class="field"><label>شماره موبایل <span class="required">*</span></label><input name="phone" class="phone" required inputmode="tel" dir="ltr" placeholder="09123456789" autocomplete="tel" maxlength="15"></div>
-      <div class="otpbox" hidden>
-        <b>تأیید شماره موبایل</b><p class="hint">کد پیامک‌شده را وارد کنید.</p>
-        <div class="inline-actions"><input name="otp" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="کد ۶ رقمی"><button class="btn small secondary verify-btn" type="button">تأیید کد</button></div>
-      </div>
-      <button class="btn send-otp" type="button">ارسال کد تأیید پیامکی</button>
-      <button class="btn final-submit" type="submit" hidden>ثبت و ارسال درخواست</button>
+      
+      <button class="btn final-submit" type="submit">ثبت درخواست خدمات و ارسال فرم</button>
+      <button class="btn final-submit" type="submit">ثبت و ارسال درخواست</button>
     </form>
 
     <!-- ثبت‌نام مشتری -->
     <form class="panel" id="form-customer" data-kind="customer" hidden>
-      <h2>ثبت‌نام مشتری</h2><p class="subhead">برای دریافت خدمات ساختمان، اطلاعات اصلی را وارد کنید.</p>
+      <h2>ثبت‌نام مشتری</h2><p class="subhead">اطلاعات خود را وارد کنید؛ فرم برای بررسی به ایمیل مدیریت ارسال می‌شود.</p>
       <div class="field"><label>نام و نام خانوادگی <span class="required">*</span></label><input name="full_name" required maxlength="100" autocomplete="name" placeholder="نام شما"></div>
       <div class="field"><label>شماره موبایل <span class="required">*</span></label><input name="phone" class="phone" required inputmode="tel" dir="ltr" placeholder="09123456789" autocomplete="tel" maxlength="15"></div>
       <div class="field"><label>محله سکونت</label><select name="neighborhood" class="area-select"><option value="">انتخاب محله (اختیاری)</option></select></div>
-      <div class="otpbox" hidden><b>تأیید شماره موبایل</b><p class="hint">کد پیامک‌شده را وارد کنید.</p><div class="inline-actions"><input name="otp" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="کد ۶ رقمی"><button class="btn small secondary verify-btn" type="button">تأیید کد</button></div></div>
-      <button class="btn send-otp" type="button">ارسال کد تأیید پیامکی</button><button class="btn final-submit" type="submit" hidden>ثبت‌نام مشتری</button>
+      
+      <button class="btn final-submit" type="submit">ثبت‌نام مشتری و ارسال فرم</button><button class="btn final-submit" type="submit">ثبت‌نام مشتری</button>
     </form>
 
     <!-- ثبت‌نام متخصص -->
     <form class="panel" id="form-technician" data-kind="technician" hidden>
-      <h2>ثبت‌نام متخصص</h2><p class="subhead">پس از بررسی و تأیید مدیر، پروفایل تخصصی شما فعال می‌شود.</p>
+      <h2>ثبت‌نام متخصص</h2><p class="subhead">فرم معرفی شما برای بررسی مدیر ارسال می‌شود؛ فعال‌سازی پس از تأیید مدیر انجام خواهد شد.</p>
       <div class="field"><label>نام و نام خانوادگی <span class="required">*</span></label><input name="full_name" required maxlength="100" autocomplete="name"></div>
       <div class="field"><label>شماره موبایل <span class="required">*</span></label><input name="phone" class="phone" required inputmode="tel" dir="ltr" placeholder="09123456789" autocomplete="tel" maxlength="15"></div>
       <div class="grid2">
@@ -97,8 +94,8 @@
         <div class="field"><label>سابقه کار</label><select name="experience_years"><option value="0">کمتر از یک سال</option><option value="1">۱ تا ۳ سال</option><option value="3">۳ تا ۵ سال</option><option value="5">۵ تا ۱۰ سال</option><option value="10">بیش از ۱۰ سال</option></select></div>
       </div>
       <div class="field"><label>محدوده اصلی فعالیت <span class="required">*</span></label><select name="area_id" class="area-select" required><option value="">انتخاب محله</option></select></div>
-      <div class="otpbox" hidden><b>تأیید شماره موبایل</b><p class="hint">کد پیامک‌شده را وارد کنید.</p><div class="inline-actions"><input name="otp" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="کد ۶ رقمی"><button class="btn small secondary verify-btn" type="button">تأیید کد</button></div></div>
-      <button class="btn send-otp" type="button">ارسال کد تأیید پیامکی</button><button class="btn final-submit" type="submit" hidden>ارسال درخواست عضویت متخصص</button>
+      
+      <button class="btn final-submit" type="submit">درخواست عضویت متخصص و ارسال فرم</button><button class="btn final-submit" type="submit">ارسال درخواست عضویت متخصص</button>
     </form>
 
     <!-- ثبت‌نام کاربر عمومی -->
@@ -107,8 +104,8 @@
       <div class="field"><label>نام و نام خانوادگی <span class="required">*</span></label><input name="full_name" required maxlength="100" autocomplete="name"></div>
       <div class="field"><label>شماره موبایل <span class="required">*</span></label><input name="phone" class="phone" required inputmode="tel" dir="ltr" placeholder="09123456789" autocomplete="tel" maxlength="15"></div>
       <div class="field"><label>محله (اختیاری)</label><select name="neighborhood" class="area-select"><option value="">انتخاب محله</option></select></div>
-      <div class="otpbox" hidden><b>تأیید شماره موبایل</b><p class="hint">کد پیامک‌شده را وارد کنید.</p><div class="inline-actions"><input name="otp" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="کد ۶ رقمی"><button class="btn small secondary verify-btn" type="button">تأیید کد</button></div></div>
-      <button class="btn send-otp" type="button">ارسال کد تأیید پیامکی</button><button class="btn final-submit" type="submit" hidden>ثبت‌نام کاربر</button>
+      
+      <button class="btn final-submit" type="submit">ثبت‌نام کاربر عمومی و ارسال فرم</button><button class="btn final-submit" type="submit">ثبت‌نام کاربر</button>
     </form>
 
     <!-- اشتراک -->
@@ -119,12 +116,12 @@
       <div class="field"><label>نام و نام خانوادگی <span class="required">*</span></label><input name="full_name" required maxlength="100" autocomplete="name"></div>
       <div class="field"><label>شماره موبایل <span class="required">*</span></label><input name="phone" class="phone" required inputmode="tel" dir="ltr" placeholder="09123456789" autocomplete="tel" maxlength="15"></div>
       <div class="field"><label>شماره پیگیری پرداخت (اختیاری)</label><input name="receipt_reference" maxlength="100" placeholder="شماره پیگیری یا توضیح پرداخت"></div>
-      <p class="hint">وضعیت اشتراک پس از بررسی پرداخت و تأیید مدیر فعال می‌شود. قیمت و مدت طرح از اطلاعات Supabase خوانده می‌شود.</p>
-      <div class="otpbox" hidden><b>تأیید شماره موبایل</b><p class="hint">کد پیامک‌شده را وارد کنید.</p><div class="inline-actions"><input name="otp" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="کد ۶ رقمی"><button class="btn small secondary verify-btn" type="button">تأیید کد</button></div></div>
-      <button class="btn send-otp" type="button">ارسال کد تأیید پیامکی</button><button class="btn final-submit" type="submit" hidden>ارسال درخواست اشتراک</button>
+      <p class="hint">درخواست اشتراک برای بررسی مدیر ارسال می‌شود. فعال‌سازی فقط پس از بررسی و تأیید مدیر انجام خواهد شد.</p>
+      
+      <button class="btn final-submit" type="submit">درخواست اشتراک و ارسال فرم</button><button class="btn final-submit" type="submit">ارسال درخواست اشتراک</button>
     </form>
 
-    <div class="footer">اطلاعات فرم‌ها در پایگاه داده <b>Supabase</b> ثبت و اعلان آن‌ها به ایمیل مدیر ارسال می‌شود.<br>همیار ساختمان | گرگان</div>
+    <div class="footer">فرم‌های ثبت‌نام، درخواست خدمات و اشتراک از طریق <b>FormSubmit</b> به ایمیل مدیریت ارسال می‌شوند.<br>همیار ساختمان | گرگان</div>
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -358,33 +355,48 @@
       }
       throw new Error('نوع فرم شناخته نشد.');
     }
-    $$('.panel').forEach(form=>form.addEventListener('submit',async e=>{
+    async function submitThroughFormSubmit(form){
+      const kind=form.dataset.kind;
+      const subjects={request:'درخواست خدمت جدید - همیار ساختمان',customer:'ثبت‌نام مشتری - همیار ساختمان',technician:'درخواست عضویت متخصص - همیار ساختمان',user:'ثبت‌نام کاربر عمومی - همیار ساختمان',subscription:'درخواست اشتراک - همیار ساختمان'};
+      const extra={نوع_فرم:formLabels[kind]||kind,وضعیت:'دریافت فرم؛ نیازمند بررسی مدیر'};
+      if(kind==='request'){
+        extra.نوع_خدمت=$('#requestCategory').selectedOptions[0]?.textContent||'';
+        extra.محله=$('#requestArea').selectedOptions[0]?.textContent||'';
+        extra.متخصص_انتخابی=$('#requestTechnician').selectedOptions[0]?.textContent||'بدون انتخاب';
+      }
+      if(kind==='technician'){
+        extra.تخصص=$('[name="specialty"]',form).selectedOptions[0]?.textContent||'';
+        extra.محدوده_فعالیت=$('[name="area_id"]',form).selectedOptions[0]?.textContent||'';
+      }
+      if(kind==='subscription'){
+        extra.نوع_اشتراک=$('[name="audience"]',form).selectedOptions[0]?.textContent||'';
+        extra.طرح_اشتراک=$('#subscriptionPlan').selectedOptions[0]?.textContent||'';
+      }
+      await sendFormEmail(form,subjects[kind]||'فرم جدید همیار ساختمان',extra);
+      return 'فرم شما با موفقیت به ایمیل مدیریت همیار ساختمان ارسال شد. پس از بررسی، برای هماهنگی با شما تماس گرفته می‌شود. توجه: این ارسال به معنی ایجاد حساب کاربری یا فعال‌شدن اشتراک نیست.';
+    }
+    const formLabels={request:'درخواست خدمت',customer:'ثبت‌نام مشتری',technician:'درخواست عضویت متخصص',user:'ثبت‌نام کاربر عمومی',subscription:'درخواست اشتراک'};
+    $('.panel').forEach(form=>form.addEventListener('submit',async e=>{
       e.preventDefault();
       if(!form.reportValidity())return;
-      const user=state.verified.get(form);
-      if(!user){showStatus('ابتدا شماره موبایل را با کد پیامکی تأیید کنید.','warn');return;}
-      const btn=$('.final-submit',form);setBusy(btn,true,'در حال ثبت اطلاعات...');
+      const btn=$('.final-submit',form);setBusy(btn,true,'در حال ارسال فرم...');
       try{
-        const message=await processForm(form,user);
+        const message=await submitThroughFormSubmit(form);
         showStatus(message,'success');
-        form.reset();state.verified.delete(form);form.dataset.phoneE164='';
-        $('.otpbox',form).hidden=true;$('.send-otp',form).hidden=false;$('.final-submit',form).hidden=true;
+        form.reset();
         if(form.id==='form-subscription')updatePlans();
         if(form.id==='form-request')$('#requestTechnician').innerHTML='<option value="">بدون انتخاب؛ معرفی متخصص واجد شرایط</option>';
       }catch(err){
         console.error(err);
-        const msg=err.message||'ثبت اطلاعات انجام نشد.';
-        showStatus(msg.includes('Failed to fetch')?'ارتباط اینترنت یا سرویس ارسال ایمیل برقرار نشد. وضعیت Supabase را بررسی کنید.':msg,'error');
-      }finally{setBusy(btn,false,form.dataset.kind==='request'?'ثبت و ارسال درخواست':form.dataset.kind==='subscription'?'ارسال درخواست اشتراک':form.dataset.kind==='technician'?'ارسال درخواست عضویت متخصص':form.dataset.kind==='customer'?'ثبت‌نام مشتری':'ثبت‌نام کاربر');}
+        showStatus(err.message||'ارسال فرم ناموفق بود. اتصال اینترنت و تنظیمات FormSubmit را بررسی کنید.','error');
+      }finally{setBusy(btn,false,formLabels[form.dataset.kind]+' و ارسال فرم');}
     }));
 
     // اگر کاربر قبلاً با همین شماره وارد شده باشد، جلسه حفظ می‌شود؛ برای امنیت، هر فرم همچنان کد پیامکی می‌خواهد.
     (async()=>{
       try{
         if(!db){showStatus('کتابخانه Supabase بارگذاری نشد؛ اتصال اینترنت را بررسی کنید.','error');return;}
-        await loadLists();
-        const {data:{session}}=await db.auth.getSession();
-        if(session?.user) console.info('Supabase session is available for',session.user.phone||'authenticated user');
+        try{await loadLists();}catch(listError){console.warn('فهرست‌های اطلاعاتی از Supabase بارگذاری نشدند:',listError);showStatus('فرم‌های ایمیلی فعال‌اند، اما دریافت فهرست محله‌ها، تخصص‌ها و طرح‌های اشتراک موقتاً انجام نشد. اتصال Supabase را بررسی کنید.','warn');}
         const initial=location.hash.slice(1);
         if(['request','customer','technician','user','subscription'].includes(initial))switchTab(initial);
         else switchTab('request');
