@@ -71,7 +71,7 @@
       <div class="field"><label>شماره موبایل <span class="required">*</span></label><input name="phone" class="phone" required inputmode="tel" dir="ltr" placeholder="09123456789" autocomplete="tel" maxlength="15"></div>
       
       <button class="btn final-submit" type="submit">ثبت درخواست خدمات و ارسال فرم</button>
-      <button class="btn final-submit" type="submit">ثبت و ارسال درخواست</button>
+      
     </form>
 
     <!-- ثبت‌نام مشتری -->
@@ -81,7 +81,7 @@
       <div class="field"><label>شماره موبایل <span class="required">*</span></label><input name="phone" class="phone" required inputmode="tel" dir="ltr" placeholder="09123456789" autocomplete="tel" maxlength="15"></div>
       <div class="field"><label>محله سکونت</label><select name="neighborhood" class="area-select"><option value="">انتخاب محله (اختیاری)</option></select></div>
       
-      <button class="btn final-submit" type="submit">ثبت‌نام مشتری و ارسال فرم</button><button class="btn final-submit" type="submit">ثبت‌نام مشتری</button>
+      <button class="btn final-submit" type="submit">ثبت‌نام مشتری و ارسال فرم</button>
     </form>
 
     <!-- ثبت‌نام متخصص -->
@@ -95,7 +95,7 @@
       </div>
       <div class="field"><label>محدوده اصلی فعالیت <span class="required">*</span></label><select name="area_id" class="area-select" required><option value="">انتخاب محله</option></select></div>
       
-      <button class="btn final-submit" type="submit">درخواست عضویت متخصص و ارسال فرم</button><button class="btn final-submit" type="submit">ارسال درخواست عضویت متخصص</button>
+      <button class="btn final-submit" type="submit">درخواست عضویت متخصص و ارسال فرم</button>
     </form>
 
     <!-- ثبت‌نام کاربر عمومی -->
@@ -105,7 +105,7 @@
       <div class="field"><label>شماره موبایل <span class="required">*</span></label><input name="phone" class="phone" required inputmode="tel" dir="ltr" placeholder="09123456789" autocomplete="tel" maxlength="15"></div>
       <div class="field"><label>محله (اختیاری)</label><select name="neighborhood" class="area-select"><option value="">انتخاب محله</option></select></div>
       
-      <button class="btn final-submit" type="submit">ثبت‌نام کاربر عمومی و ارسال فرم</button><button class="btn final-submit" type="submit">ثبت‌نام کاربر</button>
+      <button class="btn final-submit" type="submit">ثبت‌نام کاربر عمومی و ارسال فرم</button>
     </form>
 
     <!-- اشتراک -->
@@ -118,7 +118,7 @@
       <div class="field"><label>شماره پیگیری پرداخت (اختیاری)</label><input name="receipt_reference" maxlength="100" placeholder="شماره پیگیری یا توضیح پرداخت"></div>
       <p class="hint">درخواست اشتراک برای بررسی مدیر ارسال می‌شود. فعال‌سازی فقط پس از بررسی و تأیید مدیر انجام خواهد شد.</p>
       
-      <button class="btn final-submit" type="submit">درخواست اشتراک و ارسال فرم</button><button class="btn final-submit" type="submit">ارسال درخواست اشتراک</button>
+      <button class="btn final-submit" type="submit">درخواست اشتراک و ارسال فرم</button>
     </form>
 
     <div class="footer">فرم‌های ثبت‌نام، درخواست خدمات و اشتراک از طریق <b>FormSubmit</b> به ایمیل مدیریت ارسال می‌شوند.<br>همیار ساختمان | گرگان</div>
@@ -221,49 +221,7 @@
     $('#requestCategory').addEventListener('change',refreshTechnicians);
     $('#requestArea').addEventListener('change',refreshTechnicians);
 
-    function getFormPhone(form){return toIranE164($('.phone',form).value);}
     function setBusy(button,busy,label){button.disabled=busy;if(label)button.textContent=label;}
-    async function sendOtp(form){
-      if(!db)throw new Error('اتصال به Supabase برقرار نیست.');
-      const phone=getFormPhone(form);
-      const name=$('[name="full_name"]',form)?.value?.trim()||'';
-      const btn=$('.send-otp',form); setBusy(btn,true,'در حال ارسال...');
-      try{
-        const registrationType = form.dataset.kind === 'user' ? 'user' : 'customer';
-        const {error}=await db.auth.signInWithOtp({phone,options:{shouldCreateUser:true,data:{full_name:name,registration_type:registrationType}}});
-        if(error)throw error;
-        form.dataset.phoneE164=phone;
-        $('.otpbox',form).hidden=false;
-        $('.send-otp',form).hidden=true;
-        $('[name="otp"]',form).focus();
-        showStatus('کد تأیید به شماره '+phone+' ارسال شد. کد را وارد کنید.','success');
-      }finally{setBusy(btn,false,'ارسال کد تأیید پیامکی');}
-    }
-    async function verifyOtp(form){
-      const phone=form.dataset.phoneE164||getFormPhone(form);
-      const token=normalizeDigits($('[name="otp"]',form).value);
-      if(!/^\d{6}$/.test(token))throw new Error('کد تأیید باید ۶ رقم باشد.');
-      const btn=$('.verify-btn',form);setBusy(btn,true,'در حال بررسی...');
-      try{
-        const {data,error}=await db.auth.verifyOtp({phone,token,type:'sms'});
-        if(error)throw error;
-        if(!data.user)throw new Error('ورود تأیید شد اما حساب کاربری دریافت نشد.');
-        state.verified.set(form,data.user);
-        $('.otpbox',form).hidden=true;
-        $('.final-submit',form).hidden=false;
-        showStatus('شماره موبایل تأیید شد. اکنون دکمه ثبت نهایی را بزنید.','success');
-      }finally{setBusy(btn,false,'تأیید کد');}
-    }
-    function friendlyAuthError(error, fallback){
-      const message=String(error?.message||'');
-      if(/unsupported phone provider/i.test(message)) return 'سرویس ارسال پیامک در Supabase فعال یا پیکربندی نشده است. مدیر برنامه باید در Authentication > Sign In / Providers > Phone، ورود با شماره موبایل و ارائه‌دهنده SMS را تنظیم کند.';
-      if(/sms provider|twilio|messagebird|vonage/i.test(message)) return 'تنظیمات ارائه‌دهنده پیامک در Supabase کامل نیست. بخش Phone در تنظیمات Authentication را بررسی کنید.';
-      if(/invalid phone/i.test(message)) return 'شماره موبایل معتبر نیست. شماره را با قالب 09xxxxxxxxx وارد کنید.';
-      if(/rate limit|too many requests/i.test(message)) return 'تعداد درخواست کد زیاد شده است. کمی صبر کنید و دوباره تلاش کنید.';
-      return message||fallback;
-    }
-    $('.send-otp').forEach(btn=>btn.addEventListener('click',async()=>{const f=btn.closest('form');try{await sendOtp(f);}catch(e){showStatus(friendlyAuthError(e,'ارسال کد انجام نشد. تنظیمات ورود پیامکی Supabase را بررسی کنید.'),'error');}}));
-    $('.verify-btn').forEach(btn=>btn.addEventListener('click',async()=>{const f=btn.closest('form');try{await verifyOtp(f);}catch(e){showStatus(friendlyAuthError(e,'کد تأیید نشد.'),'error');}}));
 
     async function updateProfile(user, form, note){
       const fullName=$('[name="full_name"]',form)?.value?.trim()||user.user_metadata?.full_name||'';
