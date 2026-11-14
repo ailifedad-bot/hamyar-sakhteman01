@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>همیار ساختمان | ثبت‌نام</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; padding: 24px 16px; min-height: 100vh;
+      display: flex; justify-content: center; align-items: flex-start;
+      background: #f3f5f8; color: #222;
+      font-family: Tahoma, Arial, sans-serif;
+    }
+    .card {
+      width: 100%; max-width: 430px; padding: 24px;
+      background: #fff; border-radius: 14px;
+      box-shadow: 0 3px 14px rgba(0,0,0,.08);
+    }
+    h1 { margin: 0 0 8px; text-align: center; font-size: 22px; }
+    p { margin: 0 0 22px; text-align: center; color: #666; font-size: 14px; }
+    label { display: block; margin: 15px 0 7px; font-size: 14px; }
+    input, select, textarea {
+      width: 100%; padding: 12px; border: 1px solid #ccd2da;
+      border-radius: 8px; background: #fff; font: inherit;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: 2px solid #1a73e8; border-color: transparent;
+    }
+    button {
+      width: 100%; margin-top: 22px; padding: 13px;
+      border: 0; border-radius: 8px; background: #1a73e8;
+      color: white; font: inherit; font-size: 16px; cursor: pointer;
+    }
+    button:hover { background: #155fc0; }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <h1>همیار ساختمان</h1>
+    <p>فرم ساده ثبت‌نام مشتری و متخصص</p>
+
+    <form action="https://formsubmit.co/mdaneshkz@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="ثبت‌نام جدید در همیار ساختمان">
+      <input type="hidden" name="_template" value="table">
+      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+
+      <label for="name">نام و نام خانوادگی</label>
+      <input id="name" name="نام و نام خانوادگی" type="text" required>
+
+      <label for="phone">شماره موبایل</label>
+      <input id="phone" name="شماره موبایل" type="tel" inputmode="tel" dir="ltr" required>
+
+      <label for="role">نوع ثبت‌نام</label>
+      <select id="role" name="نوع ثبت‌نام" required>
+        <option value="">انتخاب کنید</option>
+        <option value="مشتری">مشتری</option>
+        <option value="متخصص خدمات">متخصص خدمات</option>
+      </select>
+
+      <label for="city">شهر / منطقه فعالیت</label>
+      <input id="city" name="شهر یا منطقه" type="text" required>
+
+      <label for="details">توضیحات (اختیاری)</label>
+      <textarea id="details" name="توضیحات" rows="3"></textarea>
+
+      <button type="submit">ارسال فرم ثبت‌نام</button>
+    </form>
+  </main>
+</body>
+</html>
